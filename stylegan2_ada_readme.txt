@@ -27,7 +27,8 @@ python train.py --outdir /home/hail2/PycharmProjects/seokhee_jin/data/output --d
 *gamma: 0.16 ~ 0.82 ~ 4.1
 
 2. resume
-python train.py --outdir /home/hail2/PycharmProjects/seokhee_jin/data/output --data /home/hail2/PycharmProjects/seokhee_jin/data/dataset/women_0516_dataset.zip --gamma=0.82 --augpipe=bgcfnc --snap=20 --resume=~/PycharmProjects/seokhee_jin/data/output/00004-women_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-000640.pkl
+python train.py --outdir=/home/hail2/PycharmProjects/seokhee_jin/data/output --data=/home/hail2/PycharmProjects/seokhee_jin/data/dataset/women_0516_dataset.zip --gamma=0.82 --augpipe=bgcfnc --snap=20 --resume=/home/hail2/PycharmProjects/seokhee_jin/data/output/00004-women_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-000640.pkl
+
 
 
 
