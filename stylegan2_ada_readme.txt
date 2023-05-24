@@ -20,13 +20,25 @@ python dataset_tool.py --source /home/hail2/PycharmProjects/seokhee_jin/data/dat
 
 
 1. train
-python train.py --outdir /home/hail2/PycharmProjects/seokhee_jin/data/output --data /home/hail2/PycharmProjects/seokhee_jin/data/dataset/women_0516_dataset.zip --resume=ffhq256 --gamma=0.82 --augpipe=bgcfnc
+python train.py --outdir /home/hail2/PycharmProjects/seokhee_jin/data/output --data /home/hail2/PycharmProjects/seokhee_jin/data/dataset/women_0516_dataset.zip --resume=ffhq256 --gamma=0.82 --augpipe=bgcfnc --snap=20
 
 
 --resume=ffhq256 --gamma=0.82 --augpipe=bgcfnc
 *gamma: 0.16 ~ 0.82 ~ 4.1
 
+2. resume
+python train.py --outdir=/home/hail2/PycharmProjects/seokhee_jin/data/output --data=/home/hail2/PycharmProjects/seokhee_jin/data/dataset/women_0516_dataset.zip --gamma=0.82 --augpipe=bgcfnc --snap=20 --resume=/home/hail2/PycharmProjects/seokhee_jin/data/output/00004-women_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-000640.pkl
 
+
+3. projection
+python projector.py --outdir=/home/hail/PycharmProjects/seokhee_jin/data/output/projected --target=/home/hail/PycharmProjects/seokhee_jin/data/source/IMG_6574_01.png --network=/home/hail/PycharmProjects/seokhee_jin/data/output/00003-men_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-001000.pkl --save-video=False
+python projector.py --outdir=/home/hail/PycharmProjects/seokhee_jin/data/output/projected --target=/home/hail/PycharmProjects/seokhee_jin/data/source/IMG_6574_01.png --network=/home/hail/PycharmProjects/seokhee_jin/data/output/00003-men_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-002000.pkl --save-video=False
+python projector.py --outdir=/home/hail/PycharmProjects/seokhee_jin/data/output/projected --target=/home/hail/PycharmProjects/seokhee_jin/data/source/IMG_6574_01.png --network=/home/hail/PycharmProjects/seokhee_jin/data/output/00003-men_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-000520.pkl --save-video=False
+python projector.py --outdir=/home/hail/PycharmProjects/seokhee_jin/data/output/projected --target=/home/hail/PycharmProjects/seokhee_jin/data/source/IMG_6574_01.png --network=/home/hail/PycharmProjects/seokhee_jin/data/output/00003-men_0516_dataset-auto1-gamma0.82-bgcfnc-resumeffhq256/network-snapshot-000200.pkl --save-video=False
+
+4. generate from projected img
+python generate.py --outdir=/home/hail/PycharmProjects/seokhee_jin/data/output/gen_proj --projected_w=/home/hail/PycharmProjects/seokhee_jin/data/output/projected_w.npz \
+    --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/ffhq.pkl
 #### docker #####
 
 #building dockerfile
@@ -34,7 +46,7 @@ cd dir
 docker login -u jin749
 docker build -t jin749/stylegan2_ada:1.0 .
 
-# run and 
+# run and
 * it: interacive terminal
 sudo docker run -it stylegan2_ada:1.0 sh
 nvidia-docker run --runtime=nvidia --gpus all -it stylegan2_ada:1.0 sh
@@ -52,5 +64,4 @@ python train.py --outdir ./final_5000_out --data ./final_5000.zip
 sudo nvidia-docker run -it --shm-size=16g --ulimit memlock=-1 --ulimit stack=67108864 -u $(id -u):$(id -g) -v /home/hail/:/mnt --device /dev/nvidia0:/dev/nvidia0 heatonresearch/stylegan2-ada /bin/bash
 
 sudo nvidia-docker run -it --shm-size=16g --ulimit memlock=-1 --ulimit stack=67108864 -u $(id -u):$(id -g) -v /home/hail/:/mnt --device /dev/nvidia0:/dev/nvidia0 jin749/stylegan2_ada:1.0 /bin/bash
-
 
