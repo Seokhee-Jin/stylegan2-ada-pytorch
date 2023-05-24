@@ -13,6 +13,18 @@ conda install scipy -y
 * When "ImportError: /lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.29' not found ~" occurred, try this:
 https://velog.io/@ssw9999/ImportError-libx8664-linux-gnulibstdc.so.6-version-GLIBCXX3.4.29-not-found
 
+$ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get dist-upgrade
+$ rm /home/xx/anaconda3/lib/libstdc++.so.6
+$ cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.29 /home/username/anaconda3/lib
+# symbolic link 생성
+$ ln -s /home/username/anaconda3/lib/libstdc++.so.6.0.29 /home/username/anaconda3/lib/libstdc++.so.6
+
+# 원하는 버전인 GLIBCXX_3.4.29 버전이 생긴 것을 확인
+$ strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+
 
 0. Create dataset (you should run it again if you've changed your computer.)
 
